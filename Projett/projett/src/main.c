@@ -20,6 +20,7 @@ main (int argc, char *argv[])
   GtkWidget *windowModifierEmploye;
   GtkWidget *windowSupprimerEmploye;
   GtkWidget *windowListeEmployes;
+  GtkWidget *windowModification;
 
 #ifdef ENABLE_NLS
   bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
@@ -39,15 +40,17 @@ main (int argc, char *argv[])
    */
   windowGestionEmployes = create_windowGestionEmployes ();
   gtk_widget_show (windowGestionEmployes);
-  windowAjoutEmploye = create_windowAjoutEmploye ();
+  /*windowAjoutEmploye = create_windowAjoutEmploye ();
   gtk_widget_show (windowAjoutEmploye);
   windowModifierEmploye = create_windowModifierEmploye ();
   gtk_widget_show (windowModifierEmploye);
   windowSupprimerEmploye = create_windowSupprimerEmploye ();
   gtk_widget_show (windowSupprimerEmploye);
-  windowListeEmployes = create_windowListeEmployes ();
+  windowListeEmployes = create_ModifierEmploye ();
   gtk_widget_show (windowListeEmployes);
-
+  windowModification = create_ModifierEmploye();
+  gtk_widget_show(windowModification);
+*/
   gtk_main ();
   return 0;
 }

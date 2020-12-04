@@ -11,7 +11,8 @@ projett_SOURCES = \
 	main.c \
 	support.c support.h \
 	interface.c interface.h \
-	callbacks.c callbacks.h
+	callbacks.c callbacks.h \
+	fonction.c fonction.h
 
 projett_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
 
