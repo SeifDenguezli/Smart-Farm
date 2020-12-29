@@ -8,7 +8,7 @@
 #include "support.h"
 #include "fonction.h"
 #include "equipement.h"
-
+#include "animal.h"
 
 void
 on_buttonListeEmployes_clicked         (GtkWidget       *button,
@@ -1639,4 +1639,695 @@ window = lookup_widget(widget, "windowHome");
 gtk_widget_destroy(window);
   return FALSE;
 }
+
+/**********************************************************************************************/ 
+void
+on_AccueilM_clicked                    (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *windowsupprimer;
+GtkWidget *windowMenu;
+GtkWidget *windowajouter;
+GtkWidget *windowmodification;
+GtkWidget *windowliste;
+GtkWidget *windowp;
+
+windowsupprimer = lookup_widget(button, "Windowsupprimer");
+gtk_widget_destroy(windowsupprimer);
+
+windowmodification = lookup_widget(button, "windowModification");
+gtk_widget_destroy(windowmodification);
+
+windowajouter = lookup_widget(button, "Windowajouter");
+gtk_widget_destroy(windowajouter);
+
+
+windowliste = lookup_widget(button, "Windowliste");
+gtk_widget_destroy(windowliste);
+
+windowp = lookup_widget(button, "windowproduction");
+gtk_widget_destroy(windowp);
+
+
+
+windowMenu = create_WindowMenu();
+gtk_widget_show(windowMenu);
+}
+
+
+void
+on_Deconnection_clicked                (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+on_button1_clicked                     (GtkButton       *button,
+                                        gpointer         user_data)
+{
+FILE *fp;
+fp=fopen("animaux.bin","rb");
+GtkWidget *windowMenu;
+GtkWidget *Windowcalcul;
+GtkWidget *combobox1;
+GtkWidget *combobox2;
+ANIMAL e;
+windowMenu = lookup_widget(button,"WindowMenu");
+gtk_widget_destroy(windowMenu);
+Windowcalcul = create_windowproduction();
+gtk_widget_show(Windowcalcul);
+
+/*GtkWidget *labelVeau;
+GtkWidget *labelBrebi;
+labelVeau=lookup_widget(Windowcalcul,"labelVeau");
+labelBrebi=lookup_widget(Windowcalcul,"labelBrebi");
+int veau,brebi;
+char veauCh[30], brebiCh[30];
+brebi = nombre_brebi();
+veau = nombre_veau();
+sprintf(veauCh, "%d", veau);
+sprintf(brebiCh, "%d", brebi);
+gtk_label_set_text(GTK_LABEL(labelVeau), veauCh);
+gtk_label_set_text(GTK_LABEL(labelBrebi), brebiCh);*/
+combobox1=lookup_widget(Windowcalcul,"combobox3");
+combobox2=lookup_widget(Windowcalcul,"combobox4");
+if(fp!=NULL)
+{
+while (fread(&e,sizeof(e),1,fp))
+{
+
+gtk_combo_box_append_text(GTK_COMBO_BOX(combobox1), e.identifiant); 
+gtk_combo_box_append_text(GTK_COMBO_BOX(combobox2), e.identifiant);
+}
+
+fclose(fp);
+}
+}
+
+
+void
+on_supprimer_clicked                   (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *windowMenu;
+GtkWidget *windowsupprimer;
+GtkWidget *liste;
+windowMenu = lookup_widget(button, "WindowMenu");
+gtk_widget_destroy(windowMenu);
+windowsupprimer = create_Windowsupprimer();
+gtk_widget_show(windowsupprimer);
+liste = lookup_widget (windowsupprimer, "treeview4Mer");
+liste_animaux(liste);
+}
+
+
+void
+on_modifier_clicked                    (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *windowmodification;
+GtkWidget *windowMenu;
+GtkWidget *liste;
+windowMenu = lookup_widget(button,"WindowMenu");
+gtk_widget_destroy(windowMenu);
+
+windowmodification = create_windowModification();
+gtk_widget_show(windowmodification);
+
+liste = lookup_widget (windowmodification, "treeview6Mer");
+liste_animaux(liste);
+}
+
+
+void
+on_ajouter_clicked                     (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *windowajouter;
+GtkWidget *windowMenu;
+
+windowMenu = lookup_widget(button,"WindowMenu");
+gtk_widget_destroy(windowMenu);
+
+windowajouter = create_Windowajouter();
+gtk_widget_show(windowajouter);
+}
+
+
+void
+on_liste_clicked                       (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *treeview1;
+GtkWidget *windowMenu;
+GtkWidget *windowliste;
+
+windowliste = create_Windowliste();
+gtk_widget_show(windowliste);
+
+treeview1= lookup_widget(windowliste, "treeview1Mer");
+liste_animaux(treeview1);
+
+windowMenu = lookup_widget(button,"WindowMenu");
+gtk_widget_destroy(windowMenu);
+}
+
+int choix1[] = {0,0}; 
+int choix[] = {0,0}; 
+void
+on_ajouter1_clicked                    (GtkButton       *button,
+                                        gpointer         user_data)
+{
+ANIMAL p;
+ANIMAL a;
+
+GtkWidget *input1;
+GtkWidget *Jour;
+GtkWidget *Mois;
+GtkWidget *Annee;
+GtkWidget *Poids;
+GtkWidget *Taille;
+GtkWidget *windowErreur;
+GtkWidget *comboboxentrytype;
+GtkWidget *windowSucc;
+GtkWidget *dialog;
+
+comboboxentrytype= lookup_widget(button, "comboboxentrytype");
+
+input1 = lookup_widget(button, "entryidentifiant");
+Jour = lookup_widget(button, "spinbuttonJour");
+Mois = lookup_widget(button, "spinbutton2Mois");
+Annee = lookup_widget(button, "spinbutton3Annee");
+Poids = lookup_widget(button, "spinbutton4Poids");
+Taille = lookup_widget(button, "spinbutton5Taille");
+
+
+strcpy(p.identifiant,gtk_entry_get_text(GTK_ENTRY(input1)));
+strcpy(p.type,gtk_combo_box_get_active_text(GTK_COMBO_BOX(comboboxentrytype)));
+
+if (choix1[0]==1)
+strcpy(p.sexe,"Male");
+else if (choix1[1]==1)
+strcpy(p.sexe,"Femelle");
+
+
+p.date.jour= gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(Jour));
+p.date.mois= gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(Mois));
+p.date.annee= gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(Annee));
+p.poids= gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(Poids));
+p.taille= gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(Taille));
+
+
+if(((choix1[0]==1) && (choix1[1]==1)) || ((choix1[0]==0) && (choix1[1]==0))|| (strcmp(p.identifiant,"")==0 ) || (strcmp(p.type,"")==0 ))
+{
+windowErreur = create_windowChampsmer();
+gtk_widget_show(windowErreur);
+
+}
+else 
+{
+ajouter_animal(p);
+windowSucc = create_dialog1mer();
+gtk_widget_show(windowSucc);
+}
+}
+
+
+void
+on_retour1_clicked                     (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+on_deconnection1_clicked               (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+on_checkbutton2Male_toggled            (GtkToggleButton *togglebutton,
+                                        gpointer         user_data)
+{
+if (gtk_toggle_button_get_active(togglebutton))
+choix1[0] = 1;
+else
+choix1[0] = 0;
+}
+
+
+void
+on_checkbutton1femelle_toggled         (GtkToggleButton *togglebutton,
+                                        gpointer         user_data)
+{
+if (gtk_toggle_button_get_active(togglebutton))
+choix1[1] = 1;
+else
+choix1[1] = 0;
+}
+
+
+void
+on_buttonsupre_clicked                 (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *treeview5;
+GtkWidget *liste1;
+GtkWidget *input;
+GtkWidget *buttonEnable;
+GtkWidget *window;
+int ok; 
+ANIMAL a;
+char identifiant[20];
+input = lookup_widget(button, "entry3Identifiant");
+buttonEnable = lookup_widget(button, "supprimer1"); 
+strcpy(identifiant,gtk_entry_get_text(GTK_ENTRY(input)));
+
+window = lookup_widget(button, "Windowsupprimer");
+treeview5 = lookup_widget(window, "treeview5Mer");
+rechercher_animal(a,identifiant,&ok);
+
+if (ok)
+gtk_widget_set_sensitive(buttonEnable, TRUE); 
+else
+gtk_widget_set_sensitive(buttonEnable, FALSE); 
+afficher_troupeauModif(treeview5);
+}
+
+
+void
+on_supprimer1_clicked                  (GtkButton       *button,
+                                        gpointer         user_data)
+{
+char identifiant[30];
+ANIMAL p;
+GtkWidget *input;
+GtkWidget *windowsuccesup;
+input = lookup_widget(button, "entry3Identifiant");
+strcpy(identifiant, gtk_entry_get_text(GTK_ENTRY(input)));
+supprimer_animal(p,identifiant);
+windowsuccesup = create_dialog4mer();
+gtk_widget_show(windowsuccesup);
+}
+
+
+void
+on_deconnection3_clicked               (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+on_deconnection4_clicked               (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+on_retour5_clicked                     (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+on_deconnection5_clicked               (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+on_confirmer2_clicked                  (GtkButton       *button,
+                                        gpointer         user_data)
+{
+ANIMAL p;
+
+
+
+GtkWidget *input1;
+GtkWidget *Jour;
+GtkWidget *Mois;
+GtkWidget *Annee;
+GtkWidget *Poids;
+GtkWidget *Taille;
+GtkWidget *comboboxentrytype2;
+GtkWidget *windowErreur;
+GtkWidget *windowSuccees;
+GtkWidget *windowM;
+
+comboboxentrytype2= lookup_widget(button, "comboboxentrytype2");
+
+input1 = lookup_widget(button, "entryidentifiant2");
+Jour = lookup_widget(button, "spinbuttonJour1");
+Mois = lookup_widget(button, "spinbutton3Mois");
+Annee = lookup_widget(button, "spinbutton4Annee");
+Poids = lookup_widget(button, "spinbutton5Poids");
+Taille = lookup_widget(button, "spinbutton6Taille");
+
+
+strcpy(p.identifiant,gtk_entry_get_text(GTK_ENTRY(input1)));
+strcpy(p.type,gtk_combo_box_get_active_text(GTK_COMBO_BOX(comboboxentrytype2)));
+
+if (choix[0]==1)
+strcpy(p.sexe,"Male");
+else if (choix[1]==1)
+strcpy(p.sexe,"Femelle");
+
+
+p.date.jour= gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(Jour));
+p.date.mois= gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(Mois));
+p.date.annee= gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(Annee));
+p.poids= gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(Poids));
+p.taille= gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(Taille));
+
+
+
+if(((choix[0]==1) && (choix[1]==1)) || ((choix[0]==0) && (choix[1]==0)) || (strcmp(p.identifiant,"")==0))
+{
+windowErreur = create_windowChampsmer();
+gtk_widget_show(windowErreur);
+}
+else
+{
+modifier_animal(p,tmps); 
+windowSuccees = create_dialog2mer();
+gtk_widget_show(windowSuccees);
+windowM = lookup_widget(button, "Windowmodifier");
+gtk_widget_destroy(windowM);
+}
+}
+
+
+
+
+
+void
+on_checkbutton1male_toggled            (GtkToggleButton *togglebutton,
+                                        gpointer         user_data)
+{
+if (gtk_toggle_button_get_active(togglebutton))
+choix[0] = 1;
+else
+choix[0] = 0;
+}
+
+
+void
+on_checkbutton2femelle_toggled         (GtkToggleButton *togglebutton,
+                                        gpointer         user_data)
+{
+if (gtk_toggle_button_get_active(togglebutton))
+choix[0] = 1;
+else
+choix[0] = 0;
+}
+
+
+void
+on_Deconnectionm_clicked               (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+
+
+
+void
+on_recherchem_clicked                  (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *treeview2;
+GtkWidget *liste1;
+GtkWidget *input;
+GtkWidget *buttonEnable;
+GtkWidget *window;
+int ok; 
+ANIMAL a;
+char identifiant[20];
+input = lookup_widget(button, "entryidentifiantt");
+buttonEnable = lookup_widget(button, "Modifierm"); 
+strcpy(identifiant,gtk_entry_get_text(GTK_ENTRY(input)));
+
+window = lookup_widget(button, "windowModification");
+treeview2 = lookup_widget(window, "treeview2Mer");
+rechercher_animal(a, identifiant, &ok);
+if (ok)
+gtk_widget_set_sensitive(buttonEnable, TRUE); 
+else
+gtk_widget_set_sensitive(buttonEnable, FALSE); 
+afficher_troupeauModif(treeview2);
+}
+
+char tmps[30];
+void
+on_Modifierm_clicked                   (GtkButton       *button,
+                                        gpointer         user_data)
+{
+char poids[20];
+char taille[20];
+
+
+ANIMAL a;
+GtkWidget *input1;
+
+GtkWidget *windowModifier;
+FILE *fp;
+fp = fopen("tmp1.bin", "rb");
+input1 = lookup_widget(button, "entryidentifiantt");
+strcpy(tmps,gtk_entry_get_text(GTK_ENTRY(input1)));
+windowModifier = create_Windowmodifier();
+
+gtk_widget_show(windowModifier);
+
+GtkWidget *output1, *output2, *output3, *output4, *output5, *output6, *output7;
+if(fp!=NULL)
+{
+while (fread(&a, sizeof(a), 1, fp))
+{
+	
+	output1 = lookup_widget(windowModifier, "entryidentifiant2");
+	
+	gtk_entry_set_text(GTK_ENTRY(output1),a.identifiant);
+
+
+	output2 = lookup_widget(windowModifier, "comboboxentrytype2");
+	gtk_entry_set_text(GTK_ENTRY(output2), a.type);
+	
+	sprintf(poids, "%d", a.poids);
+	output3 = lookup_widget(windowModifier, "spinbutton5Poids");
+	gtk_entry_set_text(GTK_ENTRY(output3), poids);
+
+	sprintf(taille, "%d", a.taille);
+	output4 = lookup_widget(windowModifier, "spinbutton6Taille");
+	gtk_entry_set_text(GTK_ENTRY(output4), taille);
+
+	output5 = lookup_widget(windowModifier, "spinbuttonJour1");
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(output5), a.date.jour);
+
+
+	output6 = lookup_widget(windowModifier, "spinbutton3Mois");
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(output6), a.date.mois);
+
+
+	output7 = lookup_widget(windowModifier, "spinbutton4Annee");
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(output7), a.date.annee);
+
+}
+}
+
+fclose(fp);
+}
+
+
+void
+on_button1mar_clicked                  (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+window = lookup_widget(button, "dialog1mer");
+gtk_widget_destroy(window);
+}
+
+
+void
+on_button2mar_clicked                  (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+window = lookup_widget(button, "dialog2mer");
+gtk_widget_destroy(window);
+}
+
+
+void
+on_button2RrefreshStat_clicked         (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *labelVeau;
+GtkWidget *labelBrebi;
+
+labelVeau=lookup_widget(button,"labelVeau");
+labelBrebi=lookup_widget(button,"labelBrebi");
+int veau,brebi;
+char veauCh[30], brebiCh[30];
+brebi = nombre_brebi();
+veau = nombre_veau();
+sprintf(veauCh, "%d", veau);
+sprintf(brebiCh, "%d", brebi);
+gtk_label_set_text(GTK_LABEL(labelVeau), veauCh);
+gtk_label_set_text(GTK_LABEL(labelBrebi), brebiCh);
+
+}
+
+
+void
+on_decon_clicked                       (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+on_deconn_clicked                      (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+on_button3_clicked                     (GtkButton       *button,
+                                        gpointer         user_data)
+{
+Production p;
+GtkWidget *identifiant;
+GtkWidget *age;
+GtkWidget *nombre;
+GtkWidget *spinn1, *spinn2;
+GtkWidget *dialog;
+GtkWidget *windowSuccm;
+
+
+identifiant = lookup_widget(button, "combobox3");
+age = lookup_widget(button, "combobox5");
+nombre = lookup_widget(button, "combobox6");
+spinn1 = lookup_widget(button,"spinbutton1");
+spinn2 = lookup_widget(button,"spinbutton2");
+
+dialog = create_windowChampsmer();
+
+p.lait = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(spinn1));
+p.laine= gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(spinn2));
+
+
+if((gtk_combo_box_get_active_text(GTK_COMBO_BOX(identifiant))==NULL)) 
+{
+	gtk_widget_show(dialog);
+
+}
+
+
+
+else 
+{
+strcpy(p.animal.identifiant, gtk_combo_box_get_active_text(GTK_COMBO_BOX(identifiant)));
+strcpy(p.age, gtk_combo_box_get_active_text(GTK_COMBO_BOX(age)));
+strcpy(p.nombre, gtk_combo_box_get_active_text(GTK_COMBO_BOX(nombre)));
+production(p);
+windowSuccm = create_dialog6mer();
+gtk_widget_show(windowSuccm);
+}
+
+}
+
+
+void
+on_deconnpro_clicked                   (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+on_button_rech_clicked                 (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *treeview1;
+GtkWidget *Combobox;
+GtkWidget *dialog;
+char identif[30];
+Combobox=lookup_widget(button,"combobox4");
+
+dialog = create_dialog5mer();
+if(gtk_combo_box_get_active_text(GTK_COMBO_BOX(Combobox))==NULL)
+{
+	gtk_widget_show(dialog);
+}
+else
+{
+strcpy(identif, gtk_combo_box_get_active_text(GTK_COMBO_BOX(Combobox)));
+treeview1= lookup_widget(button, "treeview3Mer");
+afficher_production(treeview1,identif);
+}
+}
+
+
+void
+on_button3mar_clicked                  (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+window = lookup_widget(button, "dialog3mer");
+gtk_widget_destroy(window);
+}
+
+
+void
+on_button4mar_clicked                  (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+window = lookup_widget(button, "dialog4mer");
+gtk_widget_destroy(window);
+}
+
+
+void
+on_button5mar_clicked                  (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+window = lookup_widget(button, "dialog5mer");
+gtk_widget_destroy(window);
+}
+
+
+void
+on_button6mar_clicked                  (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+window = lookup_widget(button, "dialog6mer");
+gtk_widget_destroy(window);
+}
+
+
+
 

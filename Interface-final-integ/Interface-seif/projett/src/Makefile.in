@@ -101,7 +101,7 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_projett_OBJECTS = main.$(OBJEXT) support.$(OBJEXT) \
 	interface.$(OBJEXT) callbacks.$(OBJEXT) fonction.$(OBJEXT) \
-	equipement.$(OBJEXT)
+	equipement.$(OBJEXT) animal.$(OBJEXT)
 projett_OBJECTS = $(am_projett_OBJECTS)
 am__DEPENDENCIES_1 =
 projett_DEPENDENCIES = $(am__DEPENDENCIES_1)
@@ -284,7 +284,8 @@ projett_SOURCES = \
 	interface.c interface.h \
 	callbacks.c callbacks.h \
 	fonction.c fonction.h \
-	equipement.c equipement.h
+	equipement.c equipement.h\
+	animal.c animal.h
 
 projett_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
 all: all-am
@@ -373,6 +374,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/animal.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/callbacks.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/equipement.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fonction.Po@am__quote@
