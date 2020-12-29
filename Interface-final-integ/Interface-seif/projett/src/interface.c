@@ -4076,13 +4076,14 @@ create_windowHome (void)
   gtk_widget_set_size_request (image97, 150, 150);
 
   eventbox3 = gtk_event_box_new ();
-  gtk_fixed_put (GTK_FIXED (fixed28), eventbox3, 433, 19);
-  gtk_widget_set_size_request (eventbox3, 60, 70);
+  gtk_fixed_put (GTK_FIXED (fixed28), eventbox3, 930, 600);
+  gtk_widget_set_size_request (eventbox3, 64, 45);
   gtk_event_box_set_visible_window (GTK_EVENT_BOX (eventbox3), FALSE);
 
   image139 = create_pixmap (windowHome, "medal.png");
   gtk_widget_show (image139);
   gtk_container_add (GTK_CONTAINER (eventbox3), image139);
+  gtk_widget_set_size_request (image139, 40, 40);
   gtk_misc_set_alignment (GTK_MISC (image139), 0, 0);
 
   eventbox4 = gtk_event_box_new ();
@@ -4091,7 +4092,7 @@ create_windowHome (void)
   gtk_widget_set_size_request (eventbox4, 200, 200);
   gtk_event_box_set_visible_window (GTK_EVENT_BOX (eventbox4), FALSE);
 
-  image140 = create_pixmap (windowHome, "complain(1).png");
+  image140 = create_pixmap (windowHome, "cow(2).png");
   gtk_widget_show (image140);
   gtk_container_add (GTK_CONTAINER (eventbox4), image140);
   gtk_misc_set_alignment (GTK_MISC (image140), 0.47, 0.48);
@@ -6520,10 +6521,13 @@ create_windowLogin (void)
   GtkWidget *fixed49;
   GtkWidget *entryLoginUsername;
   GtkWidget *entryLoginPassword;
+  GtkWidget *image141;
+  GtkWidget *label225;
   GtkWidget *buttonLogin;
+  GtkWidget *label224;
 
   windowLogin = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_widget_set_size_request (windowLogin, 500, 300);
+  gtk_widget_set_size_request (windowLogin, 1000, 650);
   gtk_window_set_title (GTK_WINDOW (windowLogin), _("window1"));
   gtk_window_set_resizable (GTK_WINDOW (windowLogin), FALSE);
 
@@ -6533,20 +6537,39 @@ create_windowLogin (void)
 
   entryLoginUsername = gtk_entry_new ();
   gtk_widget_show (entryLoginUsername);
-  gtk_fixed_put (GTK_FIXED (fixed49), entryLoginUsername, 192, 64);
+  gtk_fixed_put (GTK_FIXED (fixed49), entryLoginUsername, 280, 336);
   gtk_widget_set_size_request (entryLoginUsername, 160, 27);
+  gtk_entry_set_has_frame (GTK_ENTRY (entryLoginUsername), FALSE);
   gtk_entry_set_invisible_char (GTK_ENTRY (entryLoginUsername), 8226);
 
   entryLoginPassword = gtk_entry_new ();
   gtk_widget_show (entryLoginPassword);
-  gtk_fixed_put (GTK_FIXED (fixed49), entryLoginPassword, 192, 136);
+  gtk_fixed_put (GTK_FIXED (fixed49), entryLoginPassword, 584, 336);
   gtk_widget_set_size_request (entryLoginPassword, 160, 27);
+  gtk_entry_set_has_frame (GTK_ENTRY (entryLoginPassword), FALSE);
   gtk_entry_set_invisible_char (GTK_ENTRY (entryLoginPassword), 8226);
 
-  buttonLogin = gtk_button_new_with_mnemonic (_("button11"));
+  image141 = create_pixmap (windowLogin, "loginlowerop.png");
+  gtk_widget_show (image141);
+  gtk_fixed_put (GTK_FIXED (fixed49), image141, 0, 0);
+  gtk_widget_set_size_request (image141, 1000, 650);
+
+  label225 = gtk_label_new (_("<span foreground=\"#FFFF\"><b>Mot de passe</b></span>"));
+  gtk_widget_show (label225);
+  gtk_fixed_put (GTK_FIXED (fixed49), label225, 584, 304);
+  gtk_widget_set_size_request (label225, 160, 32);
+  gtk_label_set_use_markup (GTK_LABEL (label225), TRUE);
+
+  buttonLogin = gtk_button_new_with_mnemonic (_("Connecter"));
   gtk_widget_show (buttonLogin);
-  gtk_fixed_put (GTK_FIXED (fixed49), buttonLogin, 208, 224);
-  gtk_widget_set_size_request (buttonLogin, 74, 29);
+  gtk_fixed_put (GTK_FIXED (fixed49), buttonLogin, 456, 432);
+  gtk_widget_set_size_request (buttonLogin, 104, 32);
+
+  label224 = gtk_label_new (_("<span foreground=\"#FFFF\"><b>Utilisateur</b></span>"));
+  gtk_widget_show (label224);
+  gtk_fixed_put (GTK_FIXED (fixed49), label224, 304, 304);
+  gtk_widget_set_size_request (label224, 104, 32);
+  gtk_label_set_use_markup (GTK_LABEL (label224), TRUE);
 
   g_signal_connect ((gpointer) buttonLogin, "clicked",
                     G_CALLBACK (on_buttonLogin_clicked),
@@ -6557,7 +6580,10 @@ create_windowLogin (void)
   GLADE_HOOKUP_OBJECT (windowLogin, fixed49, "fixed49");
   GLADE_HOOKUP_OBJECT (windowLogin, entryLoginUsername, "entryLoginUsername");
   GLADE_HOOKUP_OBJECT (windowLogin, entryLoginPassword, "entryLoginPassword");
+  GLADE_HOOKUP_OBJECT (windowLogin, image141, "image141");
+  GLADE_HOOKUP_OBJECT (windowLogin, label225, "label225");
   GLADE_HOOKUP_OBJECT (windowLogin, buttonLogin, "buttonLogin");
+  GLADE_HOOKUP_OBJECT (windowLogin, label224, "label224");
 
   return windowLogin;
 }
