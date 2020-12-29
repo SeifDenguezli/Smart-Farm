@@ -40,3 +40,5 @@ GtkWidget* create_dialog3mer (void);
 GtkWidget* create_dialog4mer (void);
 GtkWidget* create_dialog5mer (void);
 GtkWidget* create_dialog6mer (void);
+GtkWidget* create_windowGestionComptes (void);
+GtkWidget* create_windowLogin (void);

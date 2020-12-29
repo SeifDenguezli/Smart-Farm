@@ -449,3 +449,21 @@ on_AccueilM_clicked                    (GtkButton       *button,
 void
 on_AccueilM_clicked                    (GtkButton       *button,
                                         gpointer         user_data);
+
+void
+on_buttonCreationCompt_clicked         (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_buttonLogin_clicked                 (GtkButton       *button,
+                                        gpointer         user_data);
+
+gboolean
+on_eventbox3_button_press_event        (GtkWidget       *widget,
+                                        GdkEventButton  *event,
+                                        gpointer         user_data);
+
+gboolean
+on_eventbox4_button_press_event        (GtkWidget       *widget,
+                                        GdkEventButton  *event,
+                                        gpointer         user_data);

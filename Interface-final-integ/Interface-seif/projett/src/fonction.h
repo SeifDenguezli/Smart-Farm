@@ -6,11 +6,7 @@ typedef struct
     int mois;
     int annee;
 }Naissance;
-typedef struct
-{
-    char username[20];
-    char password[20];
-}compt;
+
 
 typedef struct
 {
@@ -21,7 +17,6 @@ typedef struct
     char cin[20];
     char gsm[20];
     int id;
-    compt compt;
 }Employe;
 
 typedef struct
@@ -31,6 +26,14 @@ typedef struct
 	char etat[30];
 	
 }Pointage;
+
+typedef struct 
+{
+	int id;
+	char type[30];
+	char username[30];
+	char password[30];
+}compt;
 
 
 void  ajouter_employe(Employe e);
@@ -51,7 +54,8 @@ void afficher_meilleur_employe(GtkWidget *liste, char ident[30]);
 
 int id_supprimer_employe(Employe e, char cin[]); //Return la valeur de l'id qui va être supprimer
 void supprimer_pointage(Pointage e, int id);//supprimer les pointage de l'employé qui a l'id retourné par la fonction precedente
-
+void creer_compt(compt c);
+int verif_login(char username[30], char pass[30]);
 
 
 

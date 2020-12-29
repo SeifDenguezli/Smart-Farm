@@ -22,6 +22,7 @@ main (int argc, char *argv[])
   GtkWidget *windowListeEmployes;
   GtkWidget *windowModification;
   GtkWidget *windowHome;
+  GtkWidget *windowLogin;
 
 #ifdef ENABLE_NLS
   bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
@@ -39,10 +40,12 @@ main (int argc, char *argv[])
    * (except popup menus), just so that you see something after building
    * the project. Delete any components that you don't want shown initially.
    */
+  windowLogin = create_windowLogin();
+  gtk_widget_show(windowLogin);
   /*windowGestionEmployes = create_windowGestionEmployes ();
-  gtk_widget_show (windowGestionEmployes);*/
+  gtk_widget_show (windowGestionEmployes);
   windowHome = create_windowHome();
-  gtk_widget_show(windowHome);
+  gtk_widget_show(windowHome);*/
   /*windowAjoutEmploye = create_windowAjoutEmploye ();
   gtk_widget_show (windowAjoutEmploye);
   windowModifierEmploye = create_windowModifierEmploye ();

@@ -689,6 +689,46 @@ if (store == NULL)
 
 }
 
+void creer_compt(compt c)
+{
+FILE *fp;
+fp = fopen("accounts.bin", "ab+");
+if(fp==NULL)
+{
+	return;
+}
+else
+{
+	fwrite(&c, sizeof(c), 1, fp);
+}
+fclose(fp);
+}
+
+int verif_login(char username[30], char pass[30])
+{
+FILE *fp1;
+fp1 = fopen("accounts.bin", "rb");
+compt c;
+int test=0;
+if(fp1==NULL)
+{
+	return;
+}
+else
+{
+	while (fread(&c, sizeof(c), 1, fp1))
+	{
+		if((strcmp(c.username, username)==0) && (strcmp(c.password, pass)==0))
+		{
+			test=1;
+		}
+
+	}
+}
+return test;
+
+}
+
 
 
 

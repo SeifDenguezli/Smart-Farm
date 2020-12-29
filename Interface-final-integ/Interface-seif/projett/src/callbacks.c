@@ -158,8 +158,9 @@ if (fp1==NULL)
 	{
 		i = p.id; // i prends la valeur du dernier employe ajouté
 	}
+    fclose(fp1);
     }
-fclose(fp1);
+
 i++; // si le dernier employe ajouté à un id=5 donc i=6 ou si il nya pas d'employe, i commence de 1
 
 GtkWidget *input1;
@@ -205,7 +206,7 @@ gtk_widget_show(windowErreur);
 fail=1;
 return;
 }
-fp1 = fopen("utilisateurs.bin", "rb");
+/*fp1 = fopen("utilisateurs.bin", "rb");
 if(fp1==NULL)
 {
 	return;
@@ -224,7 +225,7 @@ while (fread(&e, sizeof(e), 1, fp1))
 	}
 }
 fclose(fp1);
-}
+}*/
 
 if (fail==0)
 {
@@ -2330,4 +2331,108 @@ gtk_widget_destroy(window);
 
 
 
+
+
+void
+on_buttonCreationCompt_clicked         (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
+GtkWidget *combo1, *combo2, *username, *password;
+combo1 = lookup_widget(button, "comboboxComptID");
+combo2 = lookup_widget(button, "comboboxComptype");
+username = lookup_widget(button, "entryComptUser");
+password = lookup_widget(button, "entryComptPass");
+compt c;
+c.id = atoi(gtk_combo_box_get_active_text(GTK_COMBO_BOX(combo1)));
+strcpy(c.type, gtk_combo_box_get_active_text(GTK_COMBO_BOX(combo2)));
+strcpy(c.username,gtk_entry_get_text(GTK_ENTRY(username)));
+strcpy(c.password,gtk_entry_get_text(GTK_ENTRY(password)));
+creer_compt(c);
+
+
+}
+
+
+void
+on_buttonLogin_clicked                 (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *username, *pass;
+GtkWidget *window, *buttonEnable;
+GtkWidget *windowFail;
+char user[30], pwd[30];
+username = lookup_widget(button, "entryLoginUsername");
+pass = lookup_widget(button, "entryLoginPassword");
+strcpy(user,gtk_entry_get_text(GTK_ENTRY(username)));
+strcpy(pwd,gtk_entry_get_text(GTK_ENTRY(pass)));
+if(verif_login(user,pwd)==1)
+{
+window = create_windowHome();
+gtk_widget_show(window);
+
+}
+else if((strcmp(user, "admin")==0) && (strcmp(pwd, "admin")==0))
+{
+window = create_windowHome();
+gtk_widget_show(window);
+buttonEnable = lookup_widget(window, "eventbox3");
+gtk_widget_show(buttonEnable);
+}
+else
+{
+windowFail = create_dialog1seif();
+gtk_widget_show(windowFail);
+
+
+}
+}
+
+
+gboolean
+on_eventbox3_button_press_event        (GtkWidget       *widget,
+                                        GdkEventButton  *event,
+                                        gpointer         user_data)
+{
+GtkWidget *windowCompt;
+GtkWidget *window;
+GtkWidget *combobox1;
+char id[30];
+Employe e;
+FILE *fp;
+fp = fopen("utilisateurs.bin", "rb");
+windowCompt = create_windowGestionComptes();
+gtk_widget_show(windowCompt);
+window = lookup_widget(widget, "windowHome");
+gtk_widget_destroy(window);
+combobox1 = lookup_widget(windowCompt, "comboboxComptID");
+if(fp!=NULL)
+{
+while (fread(&e,sizeof(e),1,fp))
+{
+sprintf(id,"%d",e.id); //convert employe id from int to char 
+gtk_combo_box_append_text(GTK_COMBO_BOX(combobox1), id); //append id's in combobox from user file(window de Pointage)
+
+}
+fclose(fp);
+}
+
+  return FALSE;
+}
+
+
+gboolean
+on_eventbox4_button_press_event        (GtkWidget       *widget,
+                                        GdkEventButton  *event,
+                                        gpointer         user_data)
+{
+GtkWidget *windowMeriam;
+GtkWidget *window;
+windowMeriam = create_WindowMenu();
+gtk_widget_show(windowMeriam);
+window = lookup_widget(widget, "windowHome");
+gtk_widget_destroy(window);
+
+  return FALSE;
+}
 

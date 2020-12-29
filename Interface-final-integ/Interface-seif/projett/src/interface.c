@@ -4031,6 +4031,10 @@ create_windowHome (void)
   GtkWidget *eventbox2;
   GtkWidget *fixed29;
   GtkWidget *image97;
+  GtkWidget *eventbox3;
+  GtkWidget *image139;
+  GtkWidget *eventbox4;
+  GtkWidget *image140;
 
   windowHome = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_widget_set_size_request (windowHome, 1000, 650);
@@ -4071,11 +4075,38 @@ create_windowHome (void)
   gtk_fixed_put (GTK_FIXED (fixed29), image97, 27, 25);
   gtk_widget_set_size_request (image97, 150, 150);
 
+  eventbox3 = gtk_event_box_new ();
+  gtk_fixed_put (GTK_FIXED (fixed28), eventbox3, 433, 19);
+  gtk_widget_set_size_request (eventbox3, 60, 70);
+  gtk_event_box_set_visible_window (GTK_EVENT_BOX (eventbox3), FALSE);
+
+  image139 = create_pixmap (windowHome, "medal.png");
+  gtk_widget_show (image139);
+  gtk_container_add (GTK_CONTAINER (eventbox3), image139);
+  gtk_misc_set_alignment (GTK_MISC (image139), 0, 0);
+
+  eventbox4 = gtk_event_box_new ();
+  gtk_widget_show (eventbox4);
+  gtk_fixed_put (GTK_FIXED (fixed28), eventbox4, 33, 384);
+  gtk_widget_set_size_request (eventbox4, 200, 200);
+  gtk_event_box_set_visible_window (GTK_EVENT_BOX (eventbox4), FALSE);
+
+  image140 = create_pixmap (windowHome, "complain(1).png");
+  gtk_widget_show (image140);
+  gtk_container_add (GTK_CONTAINER (eventbox4), image140);
+  gtk_misc_set_alignment (GTK_MISC (image140), 0.47, 0.48);
+
   g_signal_connect ((gpointer) eventbox1, "button_press_event",
                     G_CALLBACK (on_eventbox1_button_press_event),
                     NULL);
   g_signal_connect ((gpointer) eventbox2, "button_press_event",
                     G_CALLBACK (on_eventbox2_button_press_event),
+                    NULL);
+  g_signal_connect ((gpointer) eventbox3, "button_press_event",
+                    G_CALLBACK (on_eventbox3_button_press_event),
+                    NULL);
+  g_signal_connect ((gpointer) eventbox4, "button_press_event",
+                    G_CALLBACK (on_eventbox4_button_press_event),
                     NULL);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
@@ -4087,6 +4118,10 @@ create_windowHome (void)
   GLADE_HOOKUP_OBJECT (windowHome, eventbox2, "eventbox2");
   GLADE_HOOKUP_OBJECT (windowHome, fixed29, "fixed29");
   GLADE_HOOKUP_OBJECT (windowHome, image97, "image97");
+  GLADE_HOOKUP_OBJECT (windowHome, eventbox3, "eventbox3");
+  GLADE_HOOKUP_OBJECT (windowHome, image139, "image139");
+  GLADE_HOOKUP_OBJECT (windowHome, eventbox4, "eventbox4");
+  GLADE_HOOKUP_OBJECT (windowHome, image140, "image140");
 
   return windowHome;
 }
@@ -6381,5 +6416,149 @@ create_dialog6mer (void)
   GLADE_HOOKUP_OBJECT (dialog6mer, button6mar, "button6mar");
 
   return dialog6mer;
+}
+
+GtkWidget*
+create_windowGestionComptes (void)
+{
+  GtkWidget *windowGestionComptes;
+  GtkWidget *fixed48;
+  GtkWidget *comboboxComptID;
+  GtkWidget *entryComptUser;
+  GtkWidget *entryComptPass;
+  GtkWidget *label220;
+  GtkWidget *label221;
+  GtkWidget *label222;
+  GtkWidget *label223;
+  GtkWidget *comboboxComptype;
+  GtkWidget *buttonCreationCompt;
+
+  windowGestionComptes = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  gtk_widget_set_size_request (windowGestionComptes, 1000, 600);
+  gtk_window_set_title (GTK_WINDOW (windowGestionComptes), _("window1"));
+  gtk_window_set_resizable (GTK_WINDOW (windowGestionComptes), FALSE);
+
+  fixed48 = gtk_fixed_new ();
+  gtk_widget_show (fixed48);
+  gtk_container_add (GTK_CONTAINER (windowGestionComptes), fixed48);
+
+  comboboxComptID = gtk_combo_box_new_text ();
+  gtk_widget_show (comboboxComptID);
+  gtk_fixed_put (GTK_FIXED (fixed48), comboboxComptID, 336, 104);
+  gtk_widget_set_size_request (comboboxComptID, 145, 40);
+
+  entryComptUser = gtk_entry_new ();
+  gtk_widget_show (entryComptUser);
+  gtk_fixed_put (GTK_FIXED (fixed48), entryComptUser, 336, 280);
+  gtk_widget_set_size_request (entryComptUser, 160, 27);
+  gtk_entry_set_invisible_char (GTK_ENTRY (entryComptUser), 8226);
+
+  entryComptPass = gtk_entry_new ();
+  gtk_widget_show (entryComptPass);
+  gtk_fixed_put (GTK_FIXED (fixed48), entryComptPass, 336, 344);
+  gtk_widget_set_size_request (entryComptPass, 160, 27);
+  gtk_entry_set_visibility (GTK_ENTRY (entryComptPass), FALSE);
+  gtk_entry_set_invisible_char (GTK_ENTRY (entryComptPass), 8226);
+
+  label220 = gtk_label_new (_("ID : "));
+  gtk_widget_show (label220);
+  gtk_fixed_put (GTK_FIXED (fixed48), label220, 120, 104);
+  gtk_widget_set_size_request (label220, 88, 40);
+
+  label221 = gtk_label_new (_("Type : "));
+  gtk_widget_show (label221);
+  gtk_fixed_put (GTK_FIXED (fixed48), label221, 112, 168);
+  gtk_widget_set_size_request (label221, 96, 48);
+
+  label222 = gtk_label_new (_("Mot de passe : "));
+  gtk_widget_show (label222);
+  gtk_fixed_put (GTK_FIXED (fixed48), label222, 96, 328);
+  gtk_widget_set_size_request (label222, 136, 64);
+
+  label223 = gtk_label_new (_("Username : "));
+  gtk_widget_show (label223);
+  gtk_fixed_put (GTK_FIXED (fixed48), label223, 112, 248);
+  gtk_widget_set_size_request (label223, 120, 64);
+
+  comboboxComptype = gtk_combo_box_new_text ();
+  gtk_widget_show (comboboxComptype);
+  gtk_fixed_put (GTK_FIXED (fixed48), comboboxComptype, 336, 176);
+  gtk_widget_set_size_request (comboboxComptype, 145, 40);
+  gtk_combo_box_append_text (GTK_COMBO_BOX (comboboxComptype), _("Admin"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (comboboxComptype), _("Employ\303\251"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (comboboxComptype), _("Client"));
+
+  buttonCreationCompt = gtk_button_new_with_mnemonic (_("Cr\303\251er"));
+  gtk_widget_show (buttonCreationCompt);
+  gtk_fixed_put (GTK_FIXED (fixed48), buttonCreationCompt, 424, 448);
+  gtk_widget_set_size_request (buttonCreationCompt, 120, 48);
+
+  g_signal_connect ((gpointer) buttonCreationCompt, "clicked",
+                    G_CALLBACK (on_buttonCreationCompt_clicked),
+                    NULL);
+
+  /* Store pointers to all widgets, for use by lookup_widget(). */
+  GLADE_HOOKUP_OBJECT_NO_REF (windowGestionComptes, windowGestionComptes, "windowGestionComptes");
+  GLADE_HOOKUP_OBJECT (windowGestionComptes, fixed48, "fixed48");
+  GLADE_HOOKUP_OBJECT (windowGestionComptes, comboboxComptID, "comboboxComptID");
+  GLADE_HOOKUP_OBJECT (windowGestionComptes, entryComptUser, "entryComptUser");
+  GLADE_HOOKUP_OBJECT (windowGestionComptes, entryComptPass, "entryComptPass");
+  GLADE_HOOKUP_OBJECT (windowGestionComptes, label220, "label220");
+  GLADE_HOOKUP_OBJECT (windowGestionComptes, label221, "label221");
+  GLADE_HOOKUP_OBJECT (windowGestionComptes, label222, "label222");
+  GLADE_HOOKUP_OBJECT (windowGestionComptes, label223, "label223");
+  GLADE_HOOKUP_OBJECT (windowGestionComptes, comboboxComptype, "comboboxComptype");
+  GLADE_HOOKUP_OBJECT (windowGestionComptes, buttonCreationCompt, "buttonCreationCompt");
+
+  return windowGestionComptes;
+}
+
+GtkWidget*
+create_windowLogin (void)
+{
+  GtkWidget *windowLogin;
+  GtkWidget *fixed49;
+  GtkWidget *entryLoginUsername;
+  GtkWidget *entryLoginPassword;
+  GtkWidget *buttonLogin;
+
+  windowLogin = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  gtk_widget_set_size_request (windowLogin, 500, 300);
+  gtk_window_set_title (GTK_WINDOW (windowLogin), _("window1"));
+  gtk_window_set_resizable (GTK_WINDOW (windowLogin), FALSE);
+
+  fixed49 = gtk_fixed_new ();
+  gtk_widget_show (fixed49);
+  gtk_container_add (GTK_CONTAINER (windowLogin), fixed49);
+
+  entryLoginUsername = gtk_entry_new ();
+  gtk_widget_show (entryLoginUsername);
+  gtk_fixed_put (GTK_FIXED (fixed49), entryLoginUsername, 192, 64);
+  gtk_widget_set_size_request (entryLoginUsername, 160, 27);
+  gtk_entry_set_invisible_char (GTK_ENTRY (entryLoginUsername), 8226);
+
+  entryLoginPassword = gtk_entry_new ();
+  gtk_widget_show (entryLoginPassword);
+  gtk_fixed_put (GTK_FIXED (fixed49), entryLoginPassword, 192, 136);
+  gtk_widget_set_size_request (entryLoginPassword, 160, 27);
+  gtk_entry_set_invisible_char (GTK_ENTRY (entryLoginPassword), 8226);
+
+  buttonLogin = gtk_button_new_with_mnemonic (_("button11"));
+  gtk_widget_show (buttonLogin);
+  gtk_fixed_put (GTK_FIXED (fixed49), buttonLogin, 208, 224);
+  gtk_widget_set_size_request (buttonLogin, 74, 29);
+
+  g_signal_connect ((gpointer) buttonLogin, "clicked",
+                    G_CALLBACK (on_buttonLogin_clicked),
+                    NULL);
+
+  /* Store pointers to all widgets, for use by lookup_widget(). */
+  GLADE_HOOKUP_OBJECT_NO_REF (windowLogin, windowLogin, "windowLogin");
+  GLADE_HOOKUP_OBJECT (windowLogin, fixed49, "fixed49");
+  GLADE_HOOKUP_OBJECT (windowLogin, entryLoginUsername, "entryLoginUsername");
+  GLADE_HOOKUP_OBJECT (windowLogin, entryLoginPassword, "entryLoginPassword");
+  GLADE_HOOKUP_OBJECT (windowLogin, buttonLogin, "buttonLogin");
+
+  return windowLogin;
 }
 
