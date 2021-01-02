@@ -471,3 +471,7 @@ on_eventbox4_button_press_event        (GtkWidget       *widget,
 void
 on_buttonCreationCompt_clicked         (GtkButton       *button,
                                         gpointer         user_data);
+
+void
+on_DeconnectionMer_clicked             (GtkButton       *button,
+                                        gpointer         user_data);

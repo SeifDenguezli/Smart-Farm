@@ -1671,12 +1671,7 @@ gtk_widget_show(windowMenu);
 }
 
 
-void
-on_Deconnection_clicked                (GtkButton       *button,
-                                        gpointer         user_data)
-{
 
-}
 
 
 void
@@ -1851,20 +1846,7 @@ gtk_widget_show(windowSucc);
 }
 
 
-void
-on_retour1_clicked                     (GtkButton       *button,
-                                        gpointer         user_data)
-{
 
-}
-
-
-void
-on_deconnection1_clicked               (GtkButton       *button,
-                                        gpointer         user_data)
-{
-
-}
 
 
 void
@@ -1933,36 +1915,6 @@ gtk_widget_show(windowsuccesup);
 }
 
 
-void
-on_deconnection3_clicked               (GtkButton       *button,
-                                        gpointer         user_data)
-{
-
-}
-
-
-void
-on_deconnection4_clicked               (GtkButton       *button,
-                                        gpointer         user_data)
-{
-
-}
-
-
-void
-on_retour5_clicked                     (GtkButton       *button,
-                                        gpointer         user_data)
-{
-
-}
-
-
-void
-on_deconnection5_clicked               (GtkButton       *button,
-                                        gpointer         user_data)
-{
-
-}
 
 
 void
@@ -2046,18 +1998,12 @@ on_checkbutton2femelle_toggled         (GtkToggleButton *togglebutton,
                                         gpointer         user_data)
 {
 if (gtk_toggle_button_get_active(togglebutton))
-choix[0] = 1;
+choix[1] = 1;
 else
-choix[0] = 0;
+choix[1] = 0;
 }
 
 
-void
-on_Deconnectionm_clicked               (GtkButton       *button,
-                                        gpointer         user_data)
-{
-
-}
 
 
 
@@ -2122,7 +2068,8 @@ while (fread(&a, sizeof(a), 1, fp))
 
 
 	output2 = lookup_widget(windowModifier, "comboboxentrytype2");
-	gtk_entry_set_text(GTK_ENTRY(output2), a.type);
+	gtk_combo_box_append_text(GTK_COMBO_BOX(output2), a.type);
+	
 	
 	sprintf(poids, "%d", a.poids);
 	output3 = lookup_widget(windowModifier, "spinbutton5Poids");
@@ -2191,20 +2138,7 @@ gtk_label_set_text(GTK_LABEL(labelBrebi), brebiCh);
 }
 
 
-void
-on_decon_clicked                       (GtkButton       *button,
-                                        gpointer         user_data)
-{
 
-}
-
-
-void
-on_deconn_clicked                      (GtkButton       *button,
-                                        gpointer         user_data)
-{
-
-}
 
 
 void
@@ -2253,12 +2187,7 @@ gtk_widget_show(windowSuccm);
 }
 
 
-void
-on_deconnpro_clicked                   (GtkButton       *button,
-                                        gpointer         user_data)
-{
 
-}
 
 
 void
@@ -2485,4 +2414,43 @@ gtk_widget_destroy(window);
   return FALSE;
 }
 
+
+
+void
+on_DeconnectionMer_clicked             (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *windowsupprimer;
+GtkWidget *windowLogin;
+GtkWidget *windowajouter;
+GtkWidget *windowmodification;
+GtkWidget *windowliste;
+GtkWidget *windowp;
+GtkWidget *windowMenu;
+
+windowsupprimer = lookup_widget(button, "Windowsupprimer");
+gtk_widget_destroy(windowsupprimer);
+
+windowmodification = lookup_widget(button, "windowModification");
+gtk_widget_destroy(windowmodification);
+
+windowajouter = lookup_widget(button, "Windowajouter");
+gtk_widget_destroy(windowajouter);
+
+
+windowliste = lookup_widget(button, "Windowliste");
+gtk_widget_destroy(windowliste);
+
+windowp = lookup_widget(button, "windowproduction");
+gtk_widget_destroy(windowp);
+
+
+windowMenu = lookup_widget(button, "WindowMenu");
+gtk_widget_destroy(windowMenu);
+
+
+
+windowLogin = create_windowLogin();
+gtk_widget_show(windowLogin);
+}
 

@@ -155,6 +155,7 @@ while(fread(&a,sizeof(a),1,fp))
 if(strcmp(identifiant,a.identifiant)==0)
 {
 fwrite(&a,sizeof(a),1,fp1);
+break;
 *ok=1; 
 }
 }
@@ -171,14 +172,13 @@ ANIMAL p;
 GtkCellRenderer *renderer;
 GtkTreeViewColumn *Column;
 GtkTreeIter iter;
-
-
 GtkListStore *store;
-char type[20];
-char sexe[20];
-char identifiant[20];
-int poids;
-int taille;
+
+//char type[20];
+//char sexe[20];
+//char identifiant[20];
+//int poids;
+//int taille;
 char date1[30];
 store=NULL;
 FILE *fp;
@@ -231,6 +231,7 @@ sprintf(date1,"%d/%d/%d", p.date.jour,p.date.mois,p.date.annee);
 
 	gtk_list_store_append (store, &iter);
 	gtk_list_store_set (store, &iter, TYPE, p.type, SEXE,p.sexe, IDENTIFIANT, p.identifiant,POIDS,p.poids,TAILLE,p.taille,DATEA,date1, -1); 
+break;
 		}
 		fclose(fp);
 	gtk_tree_view_set_model (GTK_TREE_VIEW (liste),  GTK_TREE_MODEL (store));
