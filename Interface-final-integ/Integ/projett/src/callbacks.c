@@ -2375,6 +2375,8 @@ on_eventbox3_button_press_event        (GtkWidget       *widget,
 GtkWidget *windowCompt;
 GtkWidget *window;
 GtkWidget *combobox1;
+GtkWidget *combobox2;
+GtkWidget *combobox3;
 char id[30];
 Employe e;
 FILE *fp;
@@ -2384,12 +2386,16 @@ gtk_widget_show(windowCompt);
 window = lookup_widget(widget, "windowHome");
 gtk_widget_destroy(window);
 combobox1 = lookup_widget(windowCompt, "comboboxComptID");
+combobox2 = lookup_widget(windowCompt, "comboboxAdminID");
+combobox3 = lookup_widget(windowCompt, "comboboxAdminSupp");
 if(fp!=NULL)
 {
 while (fread(&e,sizeof(e),1,fp))
 {
 sprintf(id,"%d",e.id); //convert employe id from int to char 
-gtk_combo_box_append_text(GTK_COMBO_BOX(combobox1), id); //append id's in combobox from user file(window de Pointage)
+gtk_combo_box_append_text(GTK_COMBO_BOX(combobox1), id);
+gtk_combo_box_append_text(GTK_COMBO_BOX(combobox2), id); //append id's in combobox from user file(window de Pointage)
+gtk_combo_box_append_text(GTK_COMBO_BOX(combobox3), id);
 
 }
 fclose(fp);
@@ -2452,5 +2458,131 @@ gtk_widget_destroy(windowMenu);
 
 windowLogin = create_windowLogin();
 gtk_widget_show(windowLogin);
+}
+
+
+void
+on_buttonAdminModifier_clicked         (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *combobox;
+compt c;
+compt c2;
+int id;
+FILE *fp;
+fp = fopen("comptrecherche.bin", "rb");
+if (fp==NULL)
+{
+return;
+}
+else
+{
+combobox = lookup_widget(button, "comboboxAdminType");
+while (fread(&c, sizeof(c), 1, fp))
+{
+	c2.id = c.id;
+	id = c.id;
+	strcpy(c2.username, c.username);	
+	strcpy(c2.password, c.password);
+}
+fclose(fp);
+strcpy(c2.type, gtk_combo_box_get_active_text(GTK_COMBO_BOX(combobox)));
+modifier_compt(c2, id);
+
+}
+
+}
+
+
+void
+on_buttonAdminRechercher_clicked       (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
+GtkWidget *treeview8;
+GtkWidget *input;
+GtkWidget *buttonEnable;
+GtkWidget *window;
+GtkWidget *combobox;
+int ok, id;
+compt c;
+FILE *fp;
+fp = fopen("comptrecherche.bin", "rb");
+input = lookup_widget(button, "comboboxAdminID");
+buttonEnable = lookup_widget(button, "buttonAdminModifier"); //Pointeur sur bouton Modifier
+id = atoi(gtk_combo_box_get_active_text(GTK_COMBO_BOX(input)));
+
+treeview8 = lookup_widget(button, "treeview8");
+chercher_compt(c, id, &ok);
+if (ok)
+gtk_widget_set_sensitive(buttonEnable, TRUE); //Set Sensitivity to TRUE
+else
+gtk_widget_set_sensitive(buttonEnable, FALSE); //Set Sensitivity to FALSE
+
+afficher_comptModif(treeview8);
+combobox = lookup_widget(button, "comboboxAdminType");
+
+//gtk_combo_box_remove_text(combobox, 3);
+
+if(fp==NULL)
+{
+return;
+}
+else
+{
+	
+	while (fread(&c, sizeof(c), 1, fp))
+	{
+		if(strcmp(c.type, "Modérateur")==0)
+		{
+			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Admin");
+			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Employé");
+			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Client");
+		}
+
+		else if(strcmp(c.type, "Admin")==0)
+		{
+			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Modérateur");
+			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Employé");
+			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Client");
+		}
+
+		else if(strcmp(c.type, "Employé")==0)
+		{
+			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Modérateur");
+			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Admin");
+			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Client");
+		}
+
+		else if(strcmp(c.type, "Client")==0)
+		{
+			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Modérateur");
+			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Admin");
+			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Employé");
+		}
+
+	}
+
+}
+
+
+fclose(fp);
+
+}
+
+
+void
+on_buttonAdminChercherSupp_clicked     (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+on_buttonAdminSupp_clicked             (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
 }
 

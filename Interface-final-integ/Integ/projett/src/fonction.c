@@ -20,8 +20,14 @@ enum{
 ID1,
 DATE1,
 ETAT1,
-//TAUX1,
 COLUMNS1
+};
+
+enum{
+ID2,
+TYPE2,
+USERNAME2,
+COLUMNS2
 };
 
 
@@ -733,6 +739,121 @@ else
 	}
 }
 return test;
+
+}
+
+void chercher_compt(compt c, int id, int *ok)
+{
+FILE *fp ,*fp1;
+fp = fopen("accounts.bin", "rb");
+fp1 = fopen("comptrecherche.bin", "wb");
+*ok=0;
+
+if(fp==NULL)
+{
+return;
+}
+else
+{
+while(fread(&c, sizeof(c), 1, fp))
+{
+	if (c.id == id)
+	{
+		fwrite(&c, sizeof(c), 1, fp1);
+		*ok=1; // ok prends la valeur 1 si cin existe *********** sinon ok = 0
+	}
+
+}
+}
+fclose(fp);
+fclose(fp1);
+}
+
+
+void afficher_comptModif(GtkWidget *liste)
+{
+compt c;
+GtkCellRenderer *renderer;
+GtkTreeViewColumn *column;
+GtkTreeIter iter;
+GtkListStore *store;
+
+store = NULL;
+
+FILE *fp;
+
+
+
+store = gtk_tree_view_get_model(liste);
+
+if (store == NULL)
+{
+	renderer = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes(" Identifiant",renderer,"text",NOM,NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(liste),column);
+
+	renderer = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes(" Type",renderer,"text",PRENOM,NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(liste),column);
+
+	renderer = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes(" Username",renderer,"text",SEXE,NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(liste),column);
+
+
+	
+}
+	store = gtk_list_store_new(COLUMNS2, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING);
+	fp = fopen("comptrecherche.bin", "rb");
+
+	if(fp==NULL)
+	{
+	return;
+	}
+
+	else
+	{
+		fp = fopen("comptrecherche.bin", "ab+");	
+		while(fread(&c, sizeof(c), 1, fp))
+		{
+		
+		gtk_list_store_append(store, &iter);
+		gtk_list_store_set(store, &iter, ID2, c.id, TYPE2, c.type, USERNAME2, c.username, -1);
+		}
+		fclose(fp);
+		gtk_tree_view_set_model(GTK_TREE_VIEW(liste), GTK_TREE_MODEL(store));
+		g_object_unref(store);
+	}
+
+}
+
+
+void modifier_compt(compt c1, int id)
+{
+FILE *fp1, *fp2;
+compt c2;
+fp1 = fopen("accounts.bin", "rb");
+fp2 = fopen("tmpcompt.bin","ab+");
+if (fp1==NULL)
+{
+	return ;
+}
+else
+{
+	while (fread(&c2,sizeof(c2),1,fp1))
+	{
+		if (c2.id!=id)
+			fwrite(&c2,sizeof(c2),1,fp2);
+		else
+		{
+			fwrite(&c1,sizeof(c1),1,fp2);			
+		}
+	}
+}
+fclose(fp1);
+fclose(fp2);
+remove("accounts.bin");
+rename("tmpcompt.bin", "accounts.bin");
 
 }
 

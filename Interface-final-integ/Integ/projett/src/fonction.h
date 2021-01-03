@@ -56,6 +56,9 @@ int id_supprimer_employe(Employe e, char cin[]); //Return la valeur de l'id qui 
 void supprimer_pointage(Pointage e, int id);//supprimer les pointage de l'employé qui a l'id retourné par la fonction precedente
 void creer_compt(compt c);
 int verif_login(char username[30], char pass[30], char *type);
+void chercher_compt(compt c, int id, int *ok);
+void afficher_comptModif(GtkWidget *liste);
+void modifier_compt(compt c, int id);
 
 
 

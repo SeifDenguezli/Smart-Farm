@@ -475,3 +475,19 @@ on_buttonCreationCompt_clicked         (GtkButton       *button,
 void
 on_DeconnectionMer_clicked             (GtkButton       *button,
                                         gpointer         user_data);
+
+void
+on_buttonAdminModifier_clicked         (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_buttonAdminRechercher_clicked       (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_buttonAdminChercherSupp_clicked     (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_buttonAdminSupp_clicked             (GtkButton       *button,
+                                        gpointer         user_data);
