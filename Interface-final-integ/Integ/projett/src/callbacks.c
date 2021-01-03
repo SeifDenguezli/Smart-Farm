@@ -2262,18 +2262,66 @@ on_buttonCreationCompt_clicked         (GtkButton       *button,
                                         gpointer         user_data)
 {
 
-GtkWidget *combo1, *combo2, *username, *password;
+GtkWidget *combo1, *combo2, *username, *password, *window, *treeview;
 combo1 = lookup_widget(button, "comboboxComptID");
 combo2 = lookup_widget(button, "comboboxComptype");
 username = lookup_widget(button, "entryComptUser");
 password = lookup_widget(button, "entryComptPass");
 compt c;
-c.id = atoi(gtk_combo_box_get_active_text(GTK_COMBO_BOX(combo1)));
-strcpy(c.type, gtk_combo_box_get_active_text(GTK_COMBO_BOX(combo2)));
+compt c2;
+FILE *fp;
+fp = fopen("accounts.bin", "rb");
+int id;
+int fail = 0;
+treeview = lookup_widget(button, "treeview10");
+
 strcpy(c.username,gtk_entry_get_text(GTK_ENTRY(username)));
 strcpy(c.password,gtk_entry_get_text(GTK_ENTRY(password)));
-creer_compt(c);
+if((gtk_combo_box_get_active_text(GTK_COMBO_BOX(combo1))==NULL) || (gtk_combo_box_get_active_text(GTK_COMBO_BOX(combo2))==NULL))
+{
+window = create_windowChampsseif();
+gtk_widget_show(window);
+fail=1;
+return;
+}
 
+if ((strcmp(c.username, "")==0) || (strcmp(c.password, "")==0))
+{
+window = create_windowChampsseif();
+gtk_widget_show(window);
+fail=1;
+}
+
+
+id = atoi(gtk_combo_box_get_active_text(GTK_COMBO_BOX(combo1)));
+if(fp==NULL)
+{
+return;
+}
+else
+{
+	while (fread(&c2, sizeof(c2), 1, fp))
+	{
+		if(c2.id==id)
+		{
+			fail=1;
+			return;
+		}
+	}
+}
+
+
+if(fail==1)
+{
+	return;
+}
+else
+{
+c.id = atoi(gtk_combo_box_get_active_text(GTK_COMBO_BOX(combo1)));
+strcpy(c.type, gtk_combo_box_get_active_text(GTK_COMBO_BOX(combo2)));
+creer_compt(c);
+afficher_comptes(treeview);
+}
 
 }
 
@@ -2286,6 +2334,7 @@ GtkWidget *username, *pass;
 GtkWidget *window, *buttonEnable;
 GtkWidget *windowFail;
 GtkWidget *windowLogin;
+GtkWidget *windowChamps;
 char user[30], pwd[30];
 int fail = 1;
 username = lookup_widget(button, "entryLoginUsername");
@@ -2311,9 +2360,15 @@ windowLogin = lookup_widget(button, "windowLogin");
 gtk_widget_destroy(windowLogin);
 fail = 0;
 }
+else if ((strcmp(user, "")==0) || (strcmp(pwd, "")==0))
+{
+windowChamps = create_windowChampsseif();
+gtk_widget_show(windowChamps);
+return;
+}
 if (fail==1)
 {
-windowFail = create_dialog1seif();
+windowFail = create_dialogErreur();
 gtk_widget_show(windowFail);
 
 
@@ -2377,12 +2432,15 @@ GtkWidget *window;
 GtkWidget *combobox1;
 GtkWidget *combobox2;
 GtkWidget *combobox3;
+GtkWidget *treeview;
 char id[30];
 Employe e;
 FILE *fp;
 fp = fopen("utilisateurs.bin", "rb");
 windowCompt = create_windowGestionComptes();
 gtk_widget_show(windowCompt);
+treeview = lookup_widget(windowCompt, "treeview10");
+afficher_comptes(treeview);
 window = lookup_widget(widget, "windowHome");
 gtk_widget_destroy(window);
 combobox1 = lookup_widget(windowCompt, "comboboxComptID");
@@ -2465,7 +2523,7 @@ void
 on_buttonAdminModifier_clicked         (GtkButton       *button,
                                         gpointer         user_data)
 {
-GtkWidget *combobox;
+GtkWidget *combobox, *window, *treeview;
 compt c;
 compt c2;
 int id;
@@ -2478,6 +2536,7 @@ return;
 else
 {
 combobox = lookup_widget(button, "comboboxAdminType");
+treeview = lookup_widget(button, "treeview10");
 while (fread(&c, sizeof(c), 1, fp))
 {
 	c2.id = c.id;
@@ -2486,8 +2545,15 @@ while (fread(&c, sizeof(c), 1, fp))
 	strcpy(c2.password, c.password);
 }
 fclose(fp);
+if(gtk_combo_box_get_active_text(GTK_COMBO_BOX(combobox))==NULL)
+{
+window = create_windowChampsseif();
+gtk_widget_show(window);
+return;
+}
 strcpy(c2.type, gtk_combo_box_get_active_text(GTK_COMBO_BOX(combobox)));
 modifier_compt(c2, id);
+afficher_comptes(treeview);
 
 }
 
@@ -2503,13 +2569,17 @@ GtkWidget *treeview8;
 GtkWidget *input;
 GtkWidget *buttonEnable;
 GtkWidget *window;
-GtkWidget *combobox;
 int ok, id;
 compt c;
-FILE *fp;
-fp = fopen("comptrecherche.bin", "rb");
+
 input = lookup_widget(button, "comboboxAdminID");
 buttonEnable = lookup_widget(button, "buttonAdminModifier"); //Pointeur sur bouton Modifier
+if(gtk_combo_box_get_active_text(GTK_COMBO_BOX(input))==NULL)
+{
+window = create_windowChampsseif();
+gtk_widget_show(window);
+return;
+}
 id = atoi(gtk_combo_box_get_active_text(GTK_COMBO_BOX(input)));
 
 treeview8 = lookup_widget(button, "treeview8");
@@ -2520,53 +2590,7 @@ else
 gtk_widget_set_sensitive(buttonEnable, FALSE); //Set Sensitivity to FALSE
 
 afficher_comptModif(treeview8);
-combobox = lookup_widget(button, "comboboxAdminType");
 
-//gtk_combo_box_remove_text(combobox, 3);
-
-if(fp==NULL)
-{
-return;
-}
-else
-{
-	
-	while (fread(&c, sizeof(c), 1, fp))
-	{
-		if(strcmp(c.type, "Modérateur")==0)
-		{
-			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Admin");
-			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Employé");
-			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Client");
-		}
-
-		else if(strcmp(c.type, "Admin")==0)
-		{
-			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Modérateur");
-			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Employé");
-			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Client");
-		}
-
-		else if(strcmp(c.type, "Employé")==0)
-		{
-			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Modérateur");
-			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Admin");
-			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Client");
-		}
-
-		else if(strcmp(c.type, "Client")==0)
-		{
-			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Modérateur");
-			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Admin");
-			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), "Employé");
-		}
-
-	}
-
-}
-
-
-fclose(fp);
 
 }
 
@@ -2575,6 +2599,31 @@ void
 on_buttonAdminChercherSupp_clicked     (GtkButton       *button,
                                         gpointer         user_data)
 {
+GtkWidget *treeview9;
+GtkWidget *input;
+GtkWidget *buttonEnable;
+GtkWidget *window;
+int ok, id;
+compt c;
+FILE *fp;
+input = lookup_widget(button, "comboboxAdminSupp");
+buttonEnable = lookup_widget(button, "buttonAdminSupp"); //Pointeur sur bouton Modifier
+if(gtk_combo_box_get_active_text(GTK_COMBO_BOX(input))==NULL)
+{
+window = create_windowChampsseif();
+gtk_widget_show(window);
+return;
+}
+id = atoi(gtk_combo_box_get_active_text(GTK_COMBO_BOX(input)));
+
+treeview9 = lookup_widget(button, "treeview9");
+chercher_compt(c, id, &ok);
+if (ok)
+gtk_widget_set_sensitive(buttonEnable, TRUE); //Set Sensitivity to TRUE
+else
+gtk_widget_set_sensitive(buttonEnable, FALSE); //Set Sensitivity to FALSE
+
+afficher_comptModif(treeview9);
 
 }
 
@@ -2583,6 +2632,28 @@ void
 on_buttonAdminSupp_clicked             (GtkButton       *button,
                                         gpointer         user_data)
 {
+int id;
+GtkWidget *windowSuccees, *treeview;
+compt c;
+GtkWidget *input;
+input = lookup_widget(button, "comboboxAdminSupp");
+treeview = lookup_widget(button, "treeview10");
+id = atoi(gtk_combo_box_get_active_text(GTK_COMBO_BOX(input)));
+supprimer_compt(c, id);
+afficher_comptes(treeview);
+windowSuccees = create_dialog3seif();
+gtk_widget_show(windowSuccees);
+
+}
+
+
+void
+on_okbutton7_clicked                   (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+window = lookup_widget(button, "dialogErreur");
+gtk_widget_destroy(window);
 
 }
 

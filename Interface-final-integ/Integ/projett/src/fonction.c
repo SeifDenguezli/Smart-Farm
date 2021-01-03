@@ -857,6 +857,85 @@ rename("tmpcompt.bin", "accounts.bin");
 
 }
 
+void supprimer_compt(compt c, int id)
+{
+
+FILE *fp1, *fp2;
+    fp1 = fopen("accounts.bin", "rb");
+    fp2 = fopen("comptTempo.bin", "ab+");
+    
+    if (fp1==NULL)
+    {
+        return;
+    }
+    else
+    {
+        while (fread(&c, sizeof(c), 1, fp1))
+        {
+            if (id!=c.id)
+                fwrite(&c, sizeof(c), 1, fp2);
+        }
+    }
+    fclose(fp1);
+    fclose(fp2);
+    remove("accounts.bin");
+    rename("comptTempo.bin", "accounts.bin");
+}
+void afficher_comptes(GtkWidget *liste)
+{
+compt c;
+GtkCellRenderer *renderer;
+GtkTreeViewColumn *column;
+GtkTreeIter iter;
+GtkListStore *store;
+store = NULL;
+
+FILE *fp;
+
+
+store = gtk_tree_view_get_model(liste);
+if (store == NULL)
+{
+	renderer = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes(" Identifiant",renderer,"text",NOM,NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(liste),column);
+
+	renderer = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes(" Type",renderer,"text",PRENOM,NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(liste),column);
+
+	renderer = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes(" Utilisateur",renderer,"text",SEXE,NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(liste),column);
+
+}
+	store = gtk_list_store_new(COLUMNS2, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING);
+	fp = fopen("accounts.bin", "rb");
+
+	if(fp==NULL)
+	{
+	return;
+	}
+
+	else
+	{
+		fp = fopen("accounts.bin", "ab+");	
+		while(fread(&c, sizeof(c), 1, fp))
+		{
+		
+		gtk_list_store_append(store, &iter);
+		gtk_list_store_set(store, &iter, ID2, c.id, TYPE2, c.type, USERNAME2, c.username, -1);
+		}
+		fclose(fp);
+		gtk_tree_view_set_model(GTK_TREE_VIEW(liste), GTK_TREE_MODEL(store));
+		g_object_unref(store);
+	}
+
+}
+
+
+
+
 
 
 

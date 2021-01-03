@@ -491,3 +491,7 @@ on_buttonAdminChercherSupp_clicked     (GtkButton       *button,
 void
 on_buttonAdminSupp_clicked             (GtkButton       *button,
                                         gpointer         user_data);
+
+void
+on_okbutton7_clicked                   (GtkButton       *button,
+                                        gpointer         user_data);

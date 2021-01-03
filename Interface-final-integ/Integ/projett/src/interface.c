@@ -1822,7 +1822,7 @@ create_windowPointage (void)
   gtk_fixed_put (GTK_FIXED (fixed13), treeview6, 166, 197);
   gtk_widget_set_size_request (treeview6, 668, 64);
 
-  image49 = create_pixmap (windowPointage, "statistiques (1).png");
+  image49 = create_pixmap (windowPointage, "TauxFinale.png");
   gtk_widget_show (image49);
   gtk_fixed_put (GTK_FIXED (fixed13), image49, 0, 0);
   gtk_widget_set_size_request (image49, 1000, 600);
@@ -6448,8 +6448,8 @@ create_windowGestionComptes (void)
   GtkWidget *image144;
   GtkWidget *labelAdminSuppID;
   GtkWidget *comboboxAdminSupp;
-  GtkWidget *buttonAdminSupp;
   GtkWidget *buttonAdminChercherSupp;
+  GtkWidget *buttonAdminSupp;
   GtkWidget *label228;
   GtkWidget *fixed53;
   GtkWidget *treeview10;
@@ -6569,6 +6569,10 @@ create_windowGestionComptes (void)
   gtk_widget_show (comboboxAdminType);
   gtk_fixed_put (GTK_FIXED (fixed51), comboboxAdminType, 262, 354);
   gtk_widget_set_size_request (comboboxAdminType, 150, 36);
+  gtk_combo_box_append_text (GTK_COMBO_BOX (comboboxAdminType), _("Mod\303\251rateur"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (comboboxAdminType), _("Admin"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (comboboxAdminType), _("Employ\303\251"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (comboboxAdminType), _("Client"));
 
   buttonAdminRechercher = gtk_button_new_with_mnemonic (_("Rechercher"));
   gtk_widget_show (buttonAdminRechercher);
@@ -6581,6 +6585,7 @@ create_windowGestionComptes (void)
   gtk_fixed_put (GTK_FIXED (fixed51), buttonAdminModifier, 283, 472);
   gtk_widget_set_size_request (buttonAdminModifier, 104, 48);
   gtk_container_set_border_width (GTK_CONTAINER (buttonAdminModifier), 7);
+  gtk_widget_set_sensitive (buttonAdminModifier, FALSE);
 
   label227 = gtk_label_new (_("Modifier les droits"));
   gtk_widget_show (label227);
@@ -6611,15 +6616,16 @@ create_windowGestionComptes (void)
   gtk_fixed_put (GTK_FIXED (fixed52), comboboxAdminSupp, 270, 191);
   gtk_widget_set_size_request (comboboxAdminSupp, 150, 36);
 
-  buttonAdminSupp = gtk_button_new_with_mnemonic (_("Supprimer"));
-  gtk_widget_show (buttonAdminSupp);
-  gtk_fixed_put (GTK_FIXED (fixed52), buttonAdminSupp, 396, 351);
-  gtk_widget_set_size_request (buttonAdminSupp, 74, 29);
-
   buttonAdminChercherSupp = gtk_button_new_with_mnemonic (_("Chercher"));
   gtk_widget_show (buttonAdminChercherSupp);
   gtk_fixed_put (GTK_FIXED (fixed52), buttonAdminChercherSupp, 191, 350);
   gtk_widget_set_size_request (buttonAdminChercherSupp, 74, 29);
+
+  buttonAdminSupp = gtk_button_new_with_mnemonic (_("Supprimer"));
+  gtk_widget_show (buttonAdminSupp);
+  gtk_fixed_put (GTK_FIXED (fixed52), buttonAdminSupp, 396, 351);
+  gtk_widget_set_size_request (buttonAdminSupp, 74, 29);
+  gtk_widget_set_sensitive (buttonAdminSupp, FALSE);
 
   label228 = gtk_label_new (_("Supprimer un compt"));
   gtk_widget_show (label228);
@@ -6634,6 +6640,7 @@ create_windowGestionComptes (void)
   gtk_widget_show (treeview10);
   gtk_fixed_put (GTK_FIXED (fixed53), treeview10, 136, 40);
   gtk_widget_set_size_request (treeview10, 368, 568);
+  gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (treeview10), TRUE);
 
   image145 = create_pixmap (windowGestionComptes, "creer compte.png");
   gtk_widget_show (image145);
@@ -6654,11 +6661,11 @@ create_windowGestionComptes (void)
   g_signal_connect ((gpointer) buttonAdminModifier, "clicked",
                     G_CALLBACK (on_buttonAdminModifier_clicked),
                     NULL);
-  g_signal_connect ((gpointer) buttonAdminSupp, "clicked",
-                    G_CALLBACK (on_buttonAdminSupp_clicked),
-                    NULL);
   g_signal_connect ((gpointer) buttonAdminChercherSupp, "clicked",
                     G_CALLBACK (on_buttonAdminChercherSupp_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) buttonAdminSupp, "clicked",
+                    G_CALLBACK (on_buttonAdminSupp_clicked),
                     NULL);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
@@ -6691,8 +6698,8 @@ create_windowGestionComptes (void)
   GLADE_HOOKUP_OBJECT (windowGestionComptes, image144, "image144");
   GLADE_HOOKUP_OBJECT (windowGestionComptes, labelAdminSuppID, "labelAdminSuppID");
   GLADE_HOOKUP_OBJECT (windowGestionComptes, comboboxAdminSupp, "comboboxAdminSupp");
-  GLADE_HOOKUP_OBJECT (windowGestionComptes, buttonAdminSupp, "buttonAdminSupp");
   GLADE_HOOKUP_OBJECT (windowGestionComptes, buttonAdminChercherSupp, "buttonAdminChercherSupp");
+  GLADE_HOOKUP_OBJECT (windowGestionComptes, buttonAdminSupp, "buttonAdminSupp");
   GLADE_HOOKUP_OBJECT (windowGestionComptes, label228, "label228");
   GLADE_HOOKUP_OBJECT (windowGestionComptes, fixed53, "fixed53");
   GLADE_HOOKUP_OBJECT (windowGestionComptes, treeview10, "treeview10");
@@ -6700,5 +6707,59 @@ create_windowGestionComptes (void)
   GLADE_HOOKUP_OBJECT (windowGestionComptes, label234, "label234");
 
   return windowGestionComptes;
+}
+
+GtkWidget*
+create_dialogErreur (void)
+{
+  GtkWidget *dialogErreur;
+  GtkWidget *dialog_vbox7;
+  GtkWidget *fixed54;
+  GtkWidget *label236;
+  GtkWidget *dialog_action_area7;
+  GtkWidget *okbutton7;
+
+  dialogErreur = gtk_dialog_new ();
+  gtk_widget_set_size_request (dialogErreur, 310, 200);
+  gtk_window_set_title (GTK_WINDOW (dialogErreur), _("Pop-Up"));
+  gtk_window_set_resizable (GTK_WINDOW (dialogErreur), FALSE);
+  gtk_window_set_type_hint (GTK_WINDOW (dialogErreur), GDK_WINDOW_TYPE_HINT_DIALOG);
+  gtk_dialog_set_has_separator (GTK_DIALOG (dialogErreur), FALSE);
+
+  dialog_vbox7 = GTK_DIALOG (dialogErreur)->vbox;
+  gtk_widget_show (dialog_vbox7);
+
+  fixed54 = gtk_fixed_new ();
+  gtk_widget_show (fixed54);
+  gtk_box_pack_start (GTK_BOX (dialog_vbox7), fixed54, TRUE, TRUE, 0);
+
+  label236 = gtk_label_new (_("<span foreground=\"#FF0404\" ><b>Utilisateur ou Mot de passe Incorrect ! </b></span>"));
+  gtk_widget_show (label236);
+  gtk_fixed_put (GTK_FIXED (fixed54), label236, 8, 40);
+  gtk_widget_set_size_request (label236, 296, 104);
+  gtk_label_set_use_markup (GTK_LABEL (label236), TRUE);
+
+  dialog_action_area7 = GTK_DIALOG (dialogErreur)->action_area;
+  gtk_widget_show (dialog_action_area7);
+  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area7), GTK_BUTTONBOX_END);
+
+  okbutton7 = gtk_button_new_from_stock ("gtk-ok");
+  gtk_widget_show (okbutton7);
+  gtk_dialog_add_action_widget (GTK_DIALOG (dialogErreur), okbutton7, GTK_RESPONSE_OK);
+  GTK_WIDGET_SET_FLAGS (okbutton7, GTK_CAN_DEFAULT);
+
+  g_signal_connect ((gpointer) okbutton7, "clicked",
+                    G_CALLBACK (on_okbutton7_clicked),
+                    NULL);
+
+  /* Store pointers to all widgets, for use by lookup_widget(). */
+  GLADE_HOOKUP_OBJECT_NO_REF (dialogErreur, dialogErreur, "dialogErreur");
+  GLADE_HOOKUP_OBJECT_NO_REF (dialogErreur, dialog_vbox7, "dialog_vbox7");
+  GLADE_HOOKUP_OBJECT (dialogErreur, fixed54, "fixed54");
+  GLADE_HOOKUP_OBJECT (dialogErreur, label236, "label236");
+  GLADE_HOOKUP_OBJECT_NO_REF (dialogErreur, dialog_action_area7, "dialog_action_area7");
+  GLADE_HOOKUP_OBJECT (dialogErreur, okbutton7, "okbutton7");
+
+  return dialogErreur;
 }
 
