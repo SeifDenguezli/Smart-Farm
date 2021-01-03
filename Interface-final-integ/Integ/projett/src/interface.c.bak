@@ -5316,8 +5316,8 @@ create_windowModification (void)
 
   treeview2Mer = gtk_tree_view_new ();
   gtk_widget_show (treeview2Mer);
-  gtk_fixed_put (GTK_FIXED (fixed36), treeview2Mer, 232, 496);
-  gtk_widget_set_size_request (treeview2Mer, 520, 104);
+  gtk_fixed_put (GTK_FIXED (fixed36), treeview2Mer, 256, 496);
+  gtk_widget_set_size_request (treeview2Mer, 480, 104);
 
   image124 = create_pixmap (windowModification, "132861156_435077437516099_1328856037048573144_n.jpg");
   gtk_widget_show (image124);
@@ -5645,8 +5645,6 @@ create_windowproduction (void)
   GtkWidget *label208;
   GtkWidget *combobox3;
   GtkWidget *button3;
-  GtkWidget *combobox5;
-  GtkWidget *combobox6;
   GtkWidget *Accueilmer;
   GtkWidget *alignment97;
   GtkWidget *hbox97;
@@ -5657,6 +5655,8 @@ create_windowproduction (void)
   GtkWidget *hbox98;
   GtkWidget *image134;
   GtkWidget *label210;
+  GtkWidget *combobox5;
+  GtkWidget *combobox6;
   GtkWidget *label211;
   GtkWidget *fixed43;
   GtkWidget *label_id;
@@ -5773,7 +5773,7 @@ create_windowproduction (void)
 
   labelBrebi = gtk_label_new (_("<span foreground=\"#FFFF\" ><b>  </b></span>\n\n\n\n"));
   gtk_widget_show (labelBrebi);
-  gtk_fixed_put (GTK_FIXED (fixed40), labelBrebi, 688, 232);
+  gtk_fixed_put (GTK_FIXED (fixed40), labelBrebi, 680, 232);
   gtk_widget_set_size_request (labelBrebi, 112, 72);
   gtk_label_set_use_markup (GTK_LABEL (labelBrebi), TRUE);
 
@@ -5849,30 +5849,6 @@ create_windowproduction (void)
   gtk_fixed_put (GTK_FIXED (fixed41), button3, 416, 528);
   gtk_widget_set_size_request (button3, 168, 48);
 
-  combobox5 = gtk_combo_box_new_text ();
-  gtk_widget_show (combobox5);
-  gtk_fixed_put (GTK_FIXED (fixed41), combobox5, 512, 224);
-  gtk_widget_set_size_request (combobox5, 88, 40);
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox5), _("aucun"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox5), _("un"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox5), _("deux"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox5), _("trois"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox5), _("quatre"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox5), _("cinq"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox5), _("six"));
-
-  combobox6 = gtk_combo_box_new_text ();
-  gtk_widget_show (combobox6);
-  gtk_fixed_put (GTK_FIXED (fixed41), combobox6, 520, 288);
-  gtk_widget_set_size_request (combobox6, 72, 32);
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox6), _("aucun"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox6), _("un"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox6), _("deux"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox6), _("trois"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox6), _("quatre"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox6), _("cinq"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox6), _("six"));
-
   Accueilmer = gtk_button_new ();
   gtk_widget_show (Accueilmer);
   gtk_fixed_put (GTK_FIXED (fixed41), Accueilmer, 664, 24);
@@ -5914,6 +5890,33 @@ create_windowproduction (void)
   label210 = gtk_label_new_with_mnemonic (_("Deconnection"));
   gtk_widget_show (label210);
   gtk_box_pack_start (GTK_BOX (hbox98), label210, FALSE, FALSE, 0);
+
+  combobox5 = gtk_combo_box_new_text ();
+  gtk_widget_show (combobox5);
+  gtk_fixed_put (GTK_FIXED (fixed41), combobox5, 512, 224);
+  gtk_widget_set_size_request (combobox5, 88, 40);
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox5), _("aucun"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox5), _("un"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox5), _("deux"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox5), _("trois"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox5), _("quatre"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox5), _("cinq"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox5), _("six"));
+
+  combobox6 = gtk_combo_box_new_text ();
+  gtk_widget_show (combobox6);
+  gtk_fixed_put (GTK_FIXED (fixed41), combobox6, 520, 288);
+  gtk_widget_set_size_request (combobox6, 72, 32);
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox6), _("aucun"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox6), _("un an"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox6), _("deux ans"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox6), _("trois ans"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox6), _("quatre ans"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox6), _("cinq ans"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox6), _("six ans"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox6), _("sept ans"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox6), _("huit ans "));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (combobox6), _("neuf ans"));
 
   label211 = gtk_label_new (_("Production"));
   gtk_widget_show (label211);
@@ -6077,8 +6080,6 @@ create_windowproduction (void)
   GLADE_HOOKUP_OBJECT (windowproduction, label208, "label208");
   GLADE_HOOKUP_OBJECT (windowproduction, combobox3, "combobox3");
   GLADE_HOOKUP_OBJECT (windowproduction, button3, "button3");
-  GLADE_HOOKUP_OBJECT (windowproduction, combobox5, "combobox5");
-  GLADE_HOOKUP_OBJECT (windowproduction, combobox6, "combobox6");
   GLADE_HOOKUP_OBJECT (windowproduction, Accueilmer, "Accueilmer");
   GLADE_HOOKUP_OBJECT (windowproduction, alignment97, "alignment97");
   GLADE_HOOKUP_OBJECT (windowproduction, hbox97, "hbox97");
@@ -6089,6 +6090,8 @@ create_windowproduction (void)
   GLADE_HOOKUP_OBJECT (windowproduction, hbox98, "hbox98");
   GLADE_HOOKUP_OBJECT (windowproduction, image134, "image134");
   GLADE_HOOKUP_OBJECT (windowproduction, label210, "label210");
+  GLADE_HOOKUP_OBJECT (windowproduction, combobox5, "combobox5");
+  GLADE_HOOKUP_OBJECT (windowproduction, combobox6, "combobox6");
   GLADE_HOOKUP_OBJECT (windowproduction, label211, "label211");
   GLADE_HOOKUP_OBJECT (windowproduction, fixed43, "fixed43");
   GLADE_HOOKUP_OBJECT (windowproduction, label_id, "label_id");

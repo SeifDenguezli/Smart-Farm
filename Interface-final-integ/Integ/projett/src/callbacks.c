@@ -2056,7 +2056,7 @@ windowModifier = create_Windowmodifier();
 
 gtk_widget_show(windowModifier);
 
-GtkWidget *output1, *output2, *output3, *output4, *output5, *output6, *output7;
+GtkWidget *output1, *output2, *output3, *output4, *output5, *output6, *output7 , *output8 , *output9 ;
 if(fp!=NULL)
 {
 while (fread(&a, sizeof(a), 1, fp))
@@ -2068,7 +2068,22 @@ while (fread(&a, sizeof(a), 1, fp))
 
 
 	output2 = lookup_widget(windowModifier, "comboboxentrytype2");
-	gtk_combo_box_append_text(GTK_COMBO_BOX(output2), a.type);
+	if (strcmp(a.type,"Brebi")==0)
+	gtk_combo_box_set_active(output2,0);
+	else if (strcmp(a.type,"Veau")==0)
+	gtk_combo_box_set_active(output2,1);
+	
+	
+	output9 = lookup_widget(windowModifier, "checkbutton1male");
+	output8 = lookup_widget(windowModifier, "checkbutton2femelle");
+	if (strstr(a.sexe,"Femelle"))
+	{
+	gtk_toggle_button_set_active (output8,TRUE);
+	}
+	else if (strstr(a.sexe,"Male"))
+	{
+	gtk_toggle_button_set_active (output9,TRUE);
+	}
 	
 	
 	sprintf(poids, "%d", a.poids);

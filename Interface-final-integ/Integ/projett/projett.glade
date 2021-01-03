@@ -10372,7 +10372,7 @@ Veau</property>
 
       <child>
 	<widget class="GtkTreeView" id="treeview5Mer">
-	  <property name="width_request">464</property>
+	  <property name="width_request">480</property>
 	  <property name="height_request">120</property>
 	  <property name="visible">True</property>
 	  <property name="can_focus">True</property>
@@ -11759,7 +11759,7 @@ Veau</property>
 
       <child>
 	<widget class="GtkTreeView" id="treeview2Mer">
-	  <property name="width_request">520</property>
+	  <property name="width_request">480</property>
 	  <property name="height_request">104</property>
 	  <property name="visible">True</property>
 	  <property name="can_focus">True</property>
@@ -11772,7 +11772,7 @@ Veau</property>
 	  <property name="hover_expand">False</property>
 	</widget>
 	<packing>
-	  <property name="x">232</property>
+	  <property name="x">256</property>
 	  <property name="y">496</property>
 	</packing>
       </child>
@@ -12789,7 +12789,7 @@ Veau</property>
 	      <property name="angle">0</property>
 	    </widget>
 	    <packing>
-	      <property name="x">688</property>
+	      <property name="x">680</property>
 	      <property name="y">232</property>
 	    </packing>
 	  </child>
@@ -13080,48 +13080,6 @@ Production de laine par an:</property>
 	  </child>
 
 	  <child>
-	    <widget class="GtkComboBox" id="combobox5">
-	      <property name="width_request">88</property>
-	      <property name="height_request">40</property>
-	      <property name="visible">True</property>
-	      <property name="items" translatable="yes">aucun
-un
-deux
-trois
-quatre
-cinq
-six</property>
-	      <property name="add_tearoffs">False</property>
-	      <property name="focus_on_click">True</property>
-	    </widget>
-	    <packing>
-	      <property name="x">512</property>
-	      <property name="y">224</property>
-	    </packing>
-	  </child>
-
-	  <child>
-	    <widget class="GtkComboBox" id="combobox6">
-	      <property name="width_request">72</property>
-	      <property name="height_request">32</property>
-	      <property name="visible">True</property>
-	      <property name="items" translatable="yes">aucun
-un
-deux
-trois
-quatre
-cinq
-six</property>
-	      <property name="add_tearoffs">False</property>
-	      <property name="focus_on_click">True</property>
-	    </widget>
-	    <packing>
-	      <property name="x">520</property>
-	      <property name="y">288</property>
-	    </packing>
-	  </child>
-
-	  <child>
 	    <widget class="GtkButton" id="Accueilmer">
 	      <property name="width_request">112</property>
 	      <property name="height_request">32</property>
@@ -13278,6 +13236,51 @@ six</property>
 	    <packing>
 	      <property name="x">800</property>
 	      <property name="y">24</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkComboBox" id="combobox5">
+	      <property name="width_request">88</property>
+	      <property name="height_request">40</property>
+	      <property name="visible">True</property>
+	      <property name="items" translatable="yes">aucun
+un
+deux
+trois
+quatre
+cinq
+six</property>
+	      <property name="add_tearoffs">False</property>
+	      <property name="focus_on_click">True</property>
+	    </widget>
+	    <packing>
+	      <property name="x">512</property>
+	      <property name="y">224</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkComboBox" id="combobox6">
+	      <property name="width_request">72</property>
+	      <property name="height_request">32</property>
+	      <property name="visible">True</property>
+	      <property name="items" translatable="yes">aucun
+un an
+deux ans
+trois ans
+quatre ans
+cinq ans
+six ans
+sept ans
+huit ans 
+neuf ans</property>
+	      <property name="add_tearoffs">False</property>
+	      <property name="focus_on_click">True</property>
+	    </widget>
+	    <packing>
+	      <property name="x">520</property>
+	      <property name="y">288</property>
 	    </packing>
 	  </child>
 	</widget>

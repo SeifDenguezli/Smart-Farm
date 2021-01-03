@@ -374,11 +374,11 @@ if (store == NULL)
 	gtk_tree_view_append_column(GTK_TREE_VIEW(liste),column);
 
 	renderer = gtk_cell_renderer_text_new();
-	column = gtk_tree_view_column_new_with_attributes("Production de lait",renderer,"text",LAIT1,NULL);
+	column = gtk_tree_view_column_new_with_attributes("Production de lait(par Litres)",renderer,"text",LAIT1,NULL);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(liste),column);
 
 	renderer = gtk_cell_renderer_text_new();
-	column = gtk_tree_view_column_new_with_attributes("Production de laine",renderer,"text",LAINE1,NULL);
+	column = gtk_tree_view_column_new_with_attributes("Production de laine(en Kg)",renderer,"text",LAINE1,NULL);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(liste),column);
 	
 }
