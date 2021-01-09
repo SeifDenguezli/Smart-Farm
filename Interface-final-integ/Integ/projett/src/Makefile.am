@@ -14,7 +14,8 @@ projett_SOURCES = \
 	callbacks.c callbacks.h \
 	fonction.c fonction.h \
 	equipement.c equipement.h \
-	animal.c animal.h
+	animal.c animal.h \
+	client.c client.h 
 
 projett_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
 
