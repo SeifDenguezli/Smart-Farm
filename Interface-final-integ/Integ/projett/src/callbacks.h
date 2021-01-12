@@ -695,3 +695,103 @@ gboolean
 on_eventbox6_button_press_event        (GtkWidget       *widget,
                                         GdkEventButton  *event,
                                         gpointer         user_data);
+
+void
+on_Liste_des_Capteur_clicked           (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_buttonAcceuilCa_clicked             (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_buttonDeconnexionAmine_clicked      (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_buttonAjouterCa_clicked             (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_buttonRechercherCa_clicked          (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_buttonModifCa_clicked               (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_buttonSupprimerCa_clicked           (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_RechSuppCa_clicked                  (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_actualiserCa_clicked                (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_okbuttonajout_clicked               (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_buttonConfirmerModifCa_clicked      (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_okbuttonmodif_clicked               (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_okbuttonsupp_clicked                (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_okbuttonremplir_clicked             (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_consulterCa_clicked                 (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_buttonAcceuilCa__clicked            (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_buttonMarque__clicked               (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_buttonAjouterCapteur_clicked        (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_buttonModifCapteur_clicked          (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_buttonSupprimerCapteur_clicked      (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_buttonConsulterCapteurs_clicked     (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_buttonDeconnexinAmine__clicked      (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_buttonRetourCa_clicked              (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_checkbuttonTemperature_toggled      (GtkToggleButton *togglebutton,
+                                        gpointer         user_data);
+
+void
+on_checkbuttonHumudite_toggled         (GtkToggleButton *togglebutton,
+                                        gpointer         user_data);

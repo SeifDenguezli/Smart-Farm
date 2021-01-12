@@ -23,6 +23,13 @@ main (int argc, char *argv[])
   GtkWidget *windowModification;
   GtkWidget *windowHome;
   GtkWidget *windowLogin;
+  GtkWidget *windowGestionCapteurs;
+  GtkWidget *windowAjoutCapteur;
+  GtkWidget *windowModifierCapteur;
+  GtkWidget *windowSupprimeCapteur;
+  GtkWidget *windowListeCapteurs;
+  GtkWidget *ModifierCapteur;
+  GtkWidget *windowAlarmants;
 
 #ifdef ENABLE_NLS
   bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
@@ -56,7 +63,24 @@ main (int argc, char *argv[])
   gtk_widget_show (windowListeEmployes);
   windowModification = create_ModifierEmploye();
   gtk_widget_show(windowModification);
-*/
+  */
+  windowGestionCapteurs = create_windowGestionCapteurs ();
+  gtk_widget_show (windowGestionCapteurs);
+  /*
+  windowAjoutCapteur = create_windowAjoutCapteur ();
+  gtk_widget_show (windowAjoutCapteur);
+  windowModifierCapteur = create_windowModifierCapteur ();
+  gtk_widget_show (windowModifierCapteur);
+  windowSupprimeCapteur = create_windowSupprimeCapteur ();
+  gtk_widget_show (windowSupprimeCapteur);
+  windowListeCapteurs = create_windowListeCapteurs ();
+  gtk_widget_show (windowListeCapteurs);
+  ModifierCapteur = create_ModifierCapteur ();
+  gtk_widget_show (ModifierCapteur);
+  
+  windowAlarmants = create_windowAlarmants ();
+  gtk_widget_show (windowAlarmants);
+  */
   gtk_main ();
   return 0;
 }
